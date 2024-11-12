@@ -8,6 +8,8 @@ public class PlayerMove : MonoBehaviour
 {
     [Header("Movement")] public float speed;
     [Header("Jump")] public float jumpPower;
+    
+    private HpSystem hpSystem;
 
 
     private bool isGround = true;
@@ -47,6 +49,20 @@ public class PlayerMove : MonoBehaviour
             
         }
     }
+    public void TakeDamage(float damage)
+    {
+        hpSystem.Damage(damage);
+        if (hpSystem.curHp <= 0)
+        {
+            Die();
+        }
+    }
+
+    void Die()
+    {
+        
+    }
+    
     private void FixedUpdate()
     {
         Move();
@@ -55,12 +71,20 @@ public class PlayerMove : MonoBehaviour
     private void Update()
     {
         Jump();
+
+        if (hpSystem.curHp <= 0)
+        {
+            Die();
+        }
     }
 
     private void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
+        hpSystem = GetComponent<HpSystem>();
+        hpSystem.SetHp(100);
+        hpSystem.CheckHp();
     }
 
     private void OnCollisionEnter2D(Collision2D other)
