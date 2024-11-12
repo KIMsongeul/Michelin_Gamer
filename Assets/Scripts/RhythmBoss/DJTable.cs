@@ -6,7 +6,7 @@ using UnityEngine;
 public class DJTable : MonoBehaviour
 {
     private float upMax = 0f;
-    private float downMax = -2.0f;git 
+    private float downMax = -2.0f;
     private float currentPosition;
     private float direction = 3.0f;
 
